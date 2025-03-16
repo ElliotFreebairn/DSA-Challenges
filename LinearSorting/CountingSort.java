@@ -11,7 +11,7 @@ public class CountingSort {
   }
 
   public static void countingSort(int[] inputArr, int[] outputArr, int k) {
-    int[] countArr = new int[k + 1];
+    int[] countArr = new int[k + 1];  
 
     for(int j = 0; j < inputArr.length; j++) {
       countArr[inputArr[j]] = countArr[inputArr[j]] + 1;
