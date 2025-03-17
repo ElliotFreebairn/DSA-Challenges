@@ -15,6 +15,7 @@ public class RadixSort {
     int digitLength = String.valueOf(largestNum).length();
     // Sort elements based on the unit place digits
     
+    
 
   }
 
@@ -81,12 +82,20 @@ public class RadixSort {
     return zerosAndNum + num;
   }
 
+  private static String[] getArrAsStr(int[] arr) {
+    String[] outputArr = new String[arr.length];
+    for(int i = 0; i < arr.length; i++) {
+      outputArr[i] = String.valueOf(arr[i]);
+    }
+    return outputArr;
+  }
+
   // Counting sort especially for radix sort
-  public static void countingSort(int[] inputArr, int[] outputArr, int k, int exp) {
+  public static void countingSort(String[] inputArr, int[] outputArr, int k, int exp) {
     int[] countArr = new int[k + 1];  
 
     for(int j = 0; j < inputArr.length; j++) {
-      countArr[inputArr[j]] = countArr[inputArr[j]] + 1;
+      countArr[inputArr[j]] = countArr[getDigit(Intger.valueOf(inputArr[j]), exp)] + 1;
     }
     
     for(int i = 1; i <= k; i++) {

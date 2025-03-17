@@ -25,5 +25,5 @@ public class CountingSort {
       outputArr[countArr[inputArr[j]] - 1] = inputArr[j];
       countArr[inputArr[j]] -= 1;
     }
-  }
+  }  
 }
