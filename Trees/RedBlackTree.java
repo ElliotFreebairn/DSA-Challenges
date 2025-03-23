@@ -2,9 +2,9 @@ class RedBlackTree {
   Node root;
 
   private static void leftRotate(Node x) {
-    Node y = n.right;
+    Node y = x.right;
     
-    n.right = y.left;
+    x.right = y.left;
     if(y.left != null) {
       y.left.parent = x;
     }
@@ -12,20 +12,34 @@ class RedBlackTree {
 
     if(x.parent == null) {
       root = y;
-    }else if(x == x.p.left) {
+    }else if(x == x.parent.left) {
       x.parent.left = y;
     } else {
-      x.p.right = y;
+      x.parent.right = y;
     }
 
     y.left = x;
-    x.p = y;
+    x.parent = y;
   }
 
   private static void rightRotate(Node y) {
     Node x = n.left;
 
     y.left = x.right;
+    if(x.right != null) {
+      x.right.parent = y;
+    }
+    x.parent = y.parent;
+    if(y.parent == null) {
+      root = x;
+    }else if(y == y.parent.left) {
+      y.parent.left = x;
+    } else {
+      y.parent.right = x;
+    }
+
+    x.right = y;
+    y.parent = x;
   }
 }
 
