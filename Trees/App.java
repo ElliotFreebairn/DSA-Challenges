@@ -3,11 +3,11 @@ import java.util.*;
 public class App {
 
   public static void main(String[] args) {
-    RedBlackTree rbTree = new RedBlackTree(1);
-    rbTree.root.left = new Node(2);
-    rbTree.root.right = new Node(3);
-    rbTree.root.right.left = new Node(4);
-    rbTree.root.right.right = new Node(5);
+    RedBlackTree<Integer> rbTree = new RedBlackTree<Integer>(1);
+    rbTree.root.left = new Node<Integer>(2);
+    rbTree.root.right = new Node<Integer>(3);
+    rbTree.root.right.left = new Node<Integer>(4);
+    rbTree.root.right.right = new Node<Integer>(5);
     List<List<String>> result = rbTree.treeToMatrix(rbTree.root);
     
     rbTree.print2DArray(result);

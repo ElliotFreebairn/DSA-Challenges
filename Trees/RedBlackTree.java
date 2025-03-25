@@ -1,13 +1,13 @@
 import java.util.*;
 
-public class RedBlackTree extends BinaryTree {
+public class RedBlackTree<T extends Number> extends BinaryTree<T> {
 
-  public RedBlackTree(int key) {
+  public RedBlackTree(T key) {
     super(key);
   }
 
-  public void leftRotate(Node x) {
-    Node y = x.right;
+  public void leftRotate(Node<T> x) {
+    Node<T> y = x.right;
     
     x.right = y.left;
     if(y.left != null) {
@@ -27,8 +27,8 @@ public class RedBlackTree extends BinaryTree {
     x.parent = y;
   }
 
-  public void rightRotate(Node y) {
-    Node x = y.left;
+  public void rightRotate(Node<T> y) {
+    Node<T> x = y.left;
 
     y.left = x.right;
     if(x.right != null) {
@@ -49,14 +49,14 @@ public class RedBlackTree extends BinaryTree {
 
 }
 
-class BinaryTree {
-  Node root;
+class BinaryTree<T extends Number> {
+  Node<T> root;
 
-  public BinaryTree(int data) {
-    root = new Node(data);
+  public BinaryTree(T data) {
+    root = new Node<T>(data);
   }
 
-  private static int findHeight(Node root) {
+  private int findHeight(Node<T> root) {
     if(root == null) {
       return -1;
     }
@@ -67,7 +67,7 @@ class BinaryTree {
     return Math.max(leftHeight, rightHeight) + 1;
   }
 
-  private static void inOrder(Node root, int row, int col, int height,
+  private void inOrder(Node<T> root, int row, int col, int height,
                               List<List<String>> ans) {
     if(root == null) {
       return;
@@ -90,7 +90,7 @@ class BinaryTree {
     }
   }
 
-  public static List<List<String>> treeToMatrix(Node root) {
+  public List<List<String>> treeToMatrix(Node<T> root) {
 
     int height = findHeight(root);
 
@@ -108,7 +108,7 @@ class BinaryTree {
     return ans;
   }
 
-  public static void print2DArray(List<List<String>> arr) {
+  public void print2DArray(List<List<String>> arr) {
     for(List<String> row : arr) {
       for(String cell : row) {
         if(cell.isEmpty()) {
@@ -123,14 +123,14 @@ class BinaryTree {
 
 }
 
-class Node {
+class Node<T extends Number> {
   char colour;
-  int key;
-  Node left;
-  Node right;
-  Node parent;
+  T key;
+  Node<T> left;
+  Node<T> right;
+  Node<T> parent;
 
-  public Node(int key) {
+  public Node(T key) {
     this.key = key;
   }
 }
