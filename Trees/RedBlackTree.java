@@ -1,36 +1,12 @@
 import java.util.*;
 
-public class RedBlackTree {
-  Node root;
-
-  public static void main(String[] args) {
-    RedBlackTree rbTree = new RedBlackTree(1);
-    rbTree.root.left = new Node(2);
-    rbTree.root.right = new Node(3);
-    rbTree.root.right.left = new Node(4);
-    rbTree.root.right.right = new Node(5);
-    List<List<String>> result = treeToMatrix(rbTree.root);
-    
-    print2DArray(result);
-
-    System.out.println("Left rotate around 1");
-    rbTree.leftRotate(rbTree.root);
-
-    result = treeToMatrix(rbTree.root);
-    print2DArray(result);
-
-    System.out.println("Right rotate around 3");
-    rbTree.rightRotate(rbTree.root);
-
-    result = treeToMatrix(rbTree.root);
-    print2DArray(result);
-  }
+public class RedBlackTree extends BinaryTree {
 
   public RedBlackTree(int key) {
-    root = new Node(key);
+    super(key);
   }
 
-  private void leftRotate(Node x) {
+  public void leftRotate(Node x) {
     Node y = x.right;
     
     x.right = y.left;
@@ -51,7 +27,7 @@ public class RedBlackTree {
     x.parent = y;
   }
 
-  private void rightRotate(Node y) {
+  public void rightRotate(Node y) {
     Node x = y.left;
 
     y.left = x.right;
@@ -69,6 +45,15 @@ public class RedBlackTree {
 
     x.right = y;
     y.parent = x;
+  }
+
+}
+
+class BinaryTree {
+  Node root;
+
+  public BinaryTree(int data) {
+    root = new Node(data);
   }
 
   private static int findHeight(Node root) {
@@ -105,7 +90,7 @@ public class RedBlackTree {
     }
   }
 
-  private static List<List<String>> treeToMatrix(Node root) {
+  public static List<List<String>> treeToMatrix(Node root) {
 
     int height = findHeight(root);
 
@@ -123,7 +108,7 @@ public class RedBlackTree {
     return ans;
   }
 
-  static void print2DArray(List<List<String>> arr) {
+  public static void print2DArray(List<List<String>> arr) {
     for(List<String> row : arr) {
       for(String cell : row) {
         if(cell.isEmpty()) {
@@ -135,6 +120,7 @@ public class RedBlackTree {
       System.out.println();
     }
   }
+
 }
 
 class Node {
