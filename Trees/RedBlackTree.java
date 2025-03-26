@@ -17,65 +17,64 @@ public class RedBlackTree<T extends Number> extends BinaryTree<T> {
       } else {
         x = x.right;
       }
-
-      z.parent = y;
-      if(y == null) {
-        root = z;
-      }else if(z.key.doubleValue() < y.key.doubleValue()) {
-        y.left = z;
-      } else {
-        y.right = z;
-      }
-      z.left = null;
-      z.right = null;
-      z.colour = 'R';
-      // RB-INSERT-FIXUP(z)
     }
+
+    z.parent = y;
+    if(y == null) {
+      root = z;
+    }else if(z.key.doubleValue() < y.key.doubleValue()) {
+      y.left = z;
+    } else {
+      y.right = z;
+    }
+    z.left = null;
+    z.right = null;
+    z.colour = 'R';
+    insertFixup(z);
   }
 
   private void insertFixup(Node<T> z) {
-    Node<T> y = null;
-    while(z.parent.colour == 'R') {
-      if(z.parent == z.parent.parent.left) {
-        y = z.parent.parent.right; // y is z's uncle (right)
-        
-        if(y.colour == 'R') {
-          z.parent.colour = 'B';
-          y.colour = 'B';
-          z.parent.parent.colour = 'R';
-          z = z.parent.parent;
+    while (z.parent != null && z.parent.colour == 'R') {
+        if (z.parent == z.parent.parent.left) {
+            Node<T> y = z.parent.parent.right; // Uncle node
+            
+            if (y != null && y.colour == 'R') { 
+                z.parent.colour = 'B';
+                y.colour = 'B';
+                z.parent.parent.colour = 'R';
+                z = z.parent.parent;
+            } else {
+                if (z == z.parent.right) {
+                    z = z.parent;
+                    leftRotate(z);
+                }
+
+                z.parent.colour = 'B';
+                z.parent.parent.colour = 'R';
+                rightRotate(z.parent.parent);
+            }
         } else {
-          if(z == z.parent.right) {
-            z = z.parent;
-            leftRotate(z);
-          }
+            Node<T> y = z.parent.parent.left;
 
-          z.parent.colour = 'B';
-          z.parent.parent.colour = 'R';
-          rightRotate(z.parent.parent);
+            if (y != null && y.colour == 'R') { 
+                z.parent.colour = 'B';
+                y.colour = 'B';
+                z.parent.parent.colour = 'R';
+                z = z.parent.parent;
+            } else {
+                if (z == z.parent.left) {
+                    z = z.parent;
+                    rightRotate(z);
+                }
+
+                z.parent.colour = 'B';
+                z.parent.parent.colour = 'R';
+                leftRotate(z.parent.parent);
+            }
         }
-      } else {
-        y = z.parent.parent.left;
-
-        if(y.colour == 'R') {
-          z.parent.colour = 'B';
-          y.colour = 'B';
-          z.parent.parent.colour = 'R';
-          z = z.parent.parent;
-        } else {
-          if(z == z.parent.left) {
-            z = z.parent;
-            rightRotate(z);
-          }
-
-          z.parent.colour = 'B';
-          z.parent.parent.colour = 'R';
-          leftRotate(z.parent.parent);
-        }
-      }
     }
     root.colour = 'B';
-  }
+}
   
 
   public void leftRotate(Node<T> x) {
