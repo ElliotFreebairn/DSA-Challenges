@@ -6,9 +6,9 @@ public class RedBlackTree<T extends Number> extends BinaryTree<T> {
     super(key);
   }
 
-  public void insert(Node<T> z) {
-    Node<T> x = root;
-    Node<T> y = null;
+  public void insert(RBNode<T> z) {
+    RBNode<T> x = root;
+    RBNode<T> y = null;
 
     while(x != null) {
       y = x;
@@ -34,10 +34,10 @@ public class RedBlackTree<T extends Number> extends BinaryTree<T> {
   }
 
    
-  private void insertFixup(Node<T> z) {
+  private void insertFixup(RBNode<T> z) {
       while (z.parent != null && z.parent.colour == 'R') {
           if (z.parent == z.parent.parent.left) {
-              Node<T> y = z.parent.parent.right; // Uncle node
+              RBNode<T> y = z.parent.parent.right; // Uncle node
               
               if (y != null && y.colour == 'R') { 
                   z.parent.colour = 'B';
@@ -55,7 +55,7 @@ public class RedBlackTree<T extends Number> extends BinaryTree<T> {
                   rightRotate(z.parent.parent);
               }
           } else {
-              Node<T> y = z.parent.parent.left;
+              RBNode<T> y = z.parent.parent.left;
 
               if (y != null && y.colour == 'R') { 
                   z.parent.colour = 'B';
@@ -77,7 +77,7 @@ public class RedBlackTree<T extends Number> extends BinaryTree<T> {
     root.colour = 'B';
   }
 
-  private void transplant(Node<T> u, Node<T> v) {
+  private void transplant(RBNode<T> u, RBNode<T> v) {
     if(u.parent == null) {
       root = v;
     }else if(u == u.parent.left) {
@@ -91,8 +91,8 @@ public class RedBlackTree<T extends Number> extends BinaryTree<T> {
     
   
 
-  public void leftRotate(Node<T> x) {
-    Node<T> y = x.right;
+  public void leftRotate(RBNode<T> x) {
+    RBNode<T> y = x.right;
     
     x.right = y.left;
     if(y.left != null) {
@@ -112,8 +112,8 @@ public class RedBlackTree<T extends Number> extends BinaryTree<T> {
     x.parent = y;
   }
 
-  public void rightRotate(Node<T> y) {
-    Node<T> x = y.left;
+  public void rightRotate(RBNode<T> y) {
+    RBNode<T> x = y.left;
 
     y.left = x.right;
     if(x.right != null) {
@@ -135,13 +135,13 @@ public class RedBlackTree<T extends Number> extends BinaryTree<T> {
 }
 
 class BinaryTree<T extends Number> {
-  Node<T> root;
+  RBNode<T> root;
 
   public BinaryTree(T data) {
-    root = new Node<T>(data);
+    root = new RBNode<T>(data);
   }
 
-  private int findHeight(Node<T> root) {
+  private int findHeight(RBNode<T> root) {
     if(root == null) {
       return -1;
     }
@@ -152,7 +152,7 @@ class BinaryTree<T extends Number> {
     return Math.max(leftHeight, rightHeight) + 1;
   }
 
-  private void inOrder(Node<T> root, int row, int col, int height,
+  private void inOrder(RBNode<T> root, int row, int col, int height,
                               List<List<String>> ans) {
     if(root == null) {
       return;
@@ -175,7 +175,7 @@ class BinaryTree<T extends Number> {
     }
   }
 
-  public List<List<String>> treeToMatrix(Node<T> root) {
+  public List<List<String>> treeToMatrix(RBNode<T> root) {
 
     int height = findHeight(root);
 
@@ -208,12 +208,20 @@ class BinaryTree<T extends Number> {
 
 }
 
-class Node<T extends Number> {
+class RBNode<T extends Number> extends Node<T> {
   char colour;
+  RBNode<T> left;
+  RBNode<T> right;
+  RBNode<T> parent;
+
+  public RBNode(T key) {
+    super(key);
+    colour = 'B';
+  }
+}
+
+class Node<T extends Number> {
   T key;
-  Node<T> left;
-  Node<T> right;
-  Node<T> parent;
 
   public Node(T key) {
     this.key = key;
