@@ -45,7 +45,20 @@ public class RedBlackTree<T extends Number> extends BinaryTree<T> {
       x = z.left;
       RBTransplant(z, z.left);
     } else {
+      y = getSuccesor(z);
+      oriColour = y.colour;
+      x = y.right;
 
+      if(y.parent != z) {
+        RBTransplant(y, y.right);
+        y.right = z.right;
+        y.right.parent = y;
+      }
+
+      RBTransplant(z, y);
+      y.left = z.left;
+      y.left.parent = y;
+      y.colour = z.colour;
     }
   }
 
