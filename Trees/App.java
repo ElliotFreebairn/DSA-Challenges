@@ -12,6 +12,8 @@ public class App {
     List<List<String>> result = rbTree.treeToMatrix(rbTree.root);
     rbTree.print2DArray(result);
     
+    RBNode<Integer> succ = rbTree.getSuccesor(rbTree.root.right);
+    System.out.println(succ.key);
 
     //rbTree.print2DArray(result); 
     //System.out.println("Left rotate around 1"); 

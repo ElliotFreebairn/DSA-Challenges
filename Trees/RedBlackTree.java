@@ -34,8 +34,8 @@ public class RedBlackTree<T extends Number> extends BinaryTree<T> {
   }
 
   public void delete(RBNode<T> z) {
-    Node<T> y = z;
-    Node<T> x = null;
+    RBNode<T> y = z;
+    RBNode<T> x = null;
     char oriColour = y.colour;
 
     if(z.left == null) {
@@ -104,7 +104,7 @@ public class RedBlackTree<T extends Number> extends BinaryTree<T> {
     v.parent = u.parent;
   }
 
-  private RBNode<T> getSuccesor(RBNode<T> y) {
+  public RBNode<T> getSuccesor(RBNode<T> y) {
     if(root == null) {
       return null;
     }
@@ -116,19 +116,18 @@ public class RedBlackTree<T extends Number> extends BinaryTree<T> {
     RBNode<T> curr = root;
     while(curr != null) {
 
-      if(y.key < curr.key) {
+      if(y.key.doubleValue() < curr.key.doubleValue()) {
         succ = curr;
         curr = curr.left;
-      }else if(y.key >= curr.key) {
+      }else if(y.key.doubleValue() >= curr.key.doubleValue()) {
         curr = curr.right;
       }
     }
-
     return succ;
   }
 
-  private Node<T> leftMost(Node<T> n) {
-    Node<T> curr = n;
+  private RBNode<T> leftMost(RBNode<T> n) {
+    RBNode<T> curr = n;
     while(curr.left != null) {
       curr = curr.left;
     }
