@@ -106,6 +106,38 @@ public class RedBlackTree<T extends Number> extends BinaryTree<T> {
     root.colour = 'B';
   }
 
+  private void deleteFixup(RBNode<T> x) {
+    while(x.parent != null && x.colour == 'B') {
+      if(x == x.parent.left) {
+        RBNode<T> w = x.parent.right;
+
+        if(w.colour == 'R') {
+          w.colour = 'B';
+          x.parent.colour = 'R';
+          leftRotate(x.parent);
+          w = x.parent.right;
+        }
+        if(w.left.colour == 'B' && w.right.colour == 'B') {
+          w.left.colour = 'R';
+          x = x.parent;
+        } else {
+          
+          if(w.right.colour == 'B') {
+            w.left.colour = 'B';
+            w.colour = 'R';
+            rightRotate(w);
+            w = x.parent.right;
+          }
+          w.colour = x.parent.colour;
+          x.parent.colour = 'B';
+          w.right.colour = 'B';
+          leftRotate(x.parent);
+          x = root;
+        }
+      }
+    }
+  }
+
   private void RBTransplant(RBNode<T> u, RBNode<T> v) {
     if(u.parent == null) {
       root = v;
