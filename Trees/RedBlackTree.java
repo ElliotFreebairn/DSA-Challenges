@@ -33,6 +33,22 @@ public class RedBlackTree<T extends Number> extends BinaryTree<T> {
     insertFixup(z);
   }
 
+  public void delete(RBNode<T> z) {
+    Node<T> y = z;
+    Node<T> x = null;
+    char oriColour = y.colour;
+
+    if(z.left == null) {
+      x = z.right;
+      RBTransplant(z, z.right);
+    }else if(z.right == null) {
+      x = z.left;
+      RBTransplant(z, z.left);
+    } else {
+
+    }
+  }
+
    
   private void insertFixup(RBNode<T> z) {
     while (z.parent != null && z.parent.colour == 'R') {
@@ -77,7 +93,7 @@ public class RedBlackTree<T extends Number> extends BinaryTree<T> {
     root.colour = 'B';
   }
 
-  private void transplant(RBNode<T> u, RBNode<T> v) {
+  private void RBTransplant(RBNode<T> u, RBNode<T> v) {
     if(u.parent == null) {
       root = v;
     }else if(u == u.parent.left) {
@@ -86,6 +102,37 @@ public class RedBlackTree<T extends Number> extends BinaryTree<T> {
       u.parent.right = v;
     }
     v.parent = u.parent;
+  }
+
+  private RBNode<T> getSuccesor(RBNode<T> y) {
+    if(root == null) {
+      return null;
+    }
+    if(y.parent == null && root.right != null) {
+      return leftMost(root.right);
+    }
+
+    RBNode<T> succ = null;
+    RBNode<T> curr = root;
+    while(curr != null) {
+
+      if(y.key < curr.key) {
+        succ = curr;
+        curr = curr.left;
+      }else if(y.key >= curr.key) {
+        curr = curr.right;
+      }
+    }
+
+    return succ;
+  }
+
+  private Node<T> leftMost(Node<T> n) {
+    Node<T> curr = n;
+    while(curr.left != null) {
+      curr = curr.left;
+    }
+    return curr;
   }
   
     
@@ -212,7 +259,7 @@ class RBNode<T extends Number> extends Node<T> {
   char colour;
   RBNode<T> left;
   RBNode<T> right;
-  RBNode<T> parent;
+  RBNode<T> parent; // could put this into the node class and then cast to RBNode when i need colour 
 
   public RBNode(T key) {
     super(key);
