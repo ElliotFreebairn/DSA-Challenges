@@ -35,45 +35,45 @@ public class RedBlackTree<T extends Number> extends BinaryTree<T> {
 
    
   private void insertFixup(RBNode<T> z) {
-      while (z.parent != null && z.parent.colour == 'R') {
-          if (z.parent == z.parent.parent.left) {
-              RBNode<T> y = z.parent.parent.right; // Uncle node
-              
-              if (y != null && y.colour == 'R') { 
-                  z.parent.colour = 'B';
-                  y.colour = 'B';
-                  z.parent.parent.colour = 'R';
-                  z = z.parent.parent;
-              } else {
-                  if (z == z.parent.right) {
-                      z = z.parent;
-                      leftRotate(z);
-                  }
-
-                  z.parent.colour = 'B';
-                  z.parent.parent.colour = 'R';
-                  rightRotate(z.parent.parent);
-              }
-          } else {
-              RBNode<T> y = z.parent.parent.left;
-
-              if (y != null && y.colour == 'R') { 
-                  z.parent.colour = 'B';
-                  y.colour = 'B';
-                  z.parent.parent.colour = 'R';
-                  z = z.parent.parent;
-              } else {
-                  if (z == z.parent.left) {
-                      z = z.parent;
-                      rightRotate(z);
-                  }
-
-                  z.parent.colour = 'B';
-                  z.parent.parent.colour = 'R';
-                  leftRotate(z.parent.parent);
-              }
+    while (z.parent != null && z.parent.colour == 'R') {
+      if (z.parent == z.parent.parent.left) {
+        RBNode<T> y = z.parent.parent.right; // Uncle node
+        
+        if (y != null && y.colour == 'R') { 
+          z.parent.colour = 'B';
+          y.colour = 'B';
+          z.parent.parent.colour = 'R';
+          z = z.parent.parent;
+        } else {
+          if (z == z.parent.right) {
+              z = z.parent;
+              leftRotate(z);
           }
+
+          z.parent.colour = 'B';
+          z.parent.parent.colour = 'R';
+          rightRotate(z.parent.parent);
+        }
+    } else {
+        RBNode<T> y = z.parent.parent.left;
+
+        if (y != null && y.colour == 'R') { 
+          z.parent.colour = 'B';
+          y.colour = 'B';
+          z.parent.parent.colour = 'R';
+          z = z.parent.parent;
+        } else {
+          if (z == z.parent.left) {
+              z = z.parent;
+              rightRotate(z);
+          }
+
+          z.parent.colour = 'B';
+          z.parent.parent.colour = 'R';
+          leftRotate(z.parent.parent);
+        }
       }
+    }
     root.colour = 'B';
   }
 
